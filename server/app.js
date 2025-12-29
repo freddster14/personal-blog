@@ -1,10 +1,13 @@
-const express = require('express');
-const app = express();
-const home = require('./routes/home');
-const blog = require('./routes/blog')
+import express from 'express';
+import homeRoutes from './routes/home.js';
+import blogRoutes  from './routes/blog.js';
+import commentRoutes from './routes/comment.js';
+
 const PORT = 3000;
+const app = express();
 
-app.use('/', home);
-app.use('/b', blog);
+app.use('/', homeRoutes);
+app.use('/b', blogRoutes);
+app.use('/c', commentRoutes);
 
-app.listen(PORT)
+app.listen(PORT, () => {console.log('Sever Running')});
