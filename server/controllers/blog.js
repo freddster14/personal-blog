@@ -71,19 +71,39 @@ export const create = async (req, res, next) => {
 
 export const deleteBlog = async (req, res, next) => {
   const { slug } = req.params;
+  try {
+    const blog = await prisma.blog.delete({ where: { slug }})
+    res.status(204).send()
+  } catch (error) {
+    next(error)
+  }
   res.send('deleted')
 }
 
 export const edit = async (req, res, next) => {
   const { slug } = req.params;
   try {
-    const blog = prisma.blog.findUnique({ where: { id: Number(id) }})
+    const blog = await prisma.blog.findUnique({ where: { slug }});
+    res.json(blog)
   } catch (error) {
     next(error)
   }
 }
 
 export const update = async (req, res, next) => {
-  const { id } = req.params;
-  res.send('updated')
+  const { slug } = req.params;
+  const { title, content, published } = req.body;
+  try {
+    const blog = await prisma.blog.update({
+      where: { slug },
+      data: {
+        title,
+        content,
+        published,
+      }
+    });
+    res.status(200).json(blog)
+  } catch (error) {
+    next(error)
+  }
 }
