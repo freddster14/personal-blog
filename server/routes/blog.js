@@ -4,12 +4,12 @@ const blog = Router();
 
 blog.get('/', controller.latest)
 blog.get('/all', controller.getAll);
-blog.get('/:id', controller.getOne);
+blog.get('/:slug', controller.getOne);
 blog.get('/create', controller.getForm);
-blog.get('/edit/:id', controller.edit);
+blog.get('/edit/:slug', controller.edit);
 
 blog.post('/', controller.create);
-blog.delete('/:id', controller.deleteBlog);
-blog.put('/:id', controller.update);
+blog.delete('/:slug', controller.deleteBlog);
+blog.put('/:slug', controller.update);
 
 export default blog;
