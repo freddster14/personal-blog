@@ -11,13 +11,17 @@ export const getBlogComments = async (req, res, next) => {
 }
 
 export const create = async (req, res, next) => {
+  const { blogId } = req.params;
+  const { content } = req.body;
   try {
     const comment = await prisma.comment.create({
       data: {
-
+        content,
+        blogId,
+        authorId: 'idk'
       }
     })
-    res.send('created')
+    res.status(201).send('created')
   } catch (error) {
     next(error);
   }
@@ -27,7 +31,7 @@ export const deleteComment = async (req, res, next) => {
   const { id } = req.params;
   try {
     const comment = await prisma.comment.delete({ where: { id: Number(id) }})
-    res.send('deleted')
+    res.status(200).send('deleted')
   } catch (error) {
     next(error);
   }
