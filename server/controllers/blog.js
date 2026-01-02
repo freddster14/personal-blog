@@ -51,7 +51,9 @@ export const getForm = (req, res) => {
 
 
 export const create = async (req, res, next) => {
-  const { title, content, published, authorId } = req.body;
+
+  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  const { title, content, published } = req.body;
   const slug = slugify(title);
   try {
     const blog = await prisma.blog.create({
@@ -60,7 +62,7 @@ export const create = async (req, res, next) => {
         content,
         published,
         slug,
-        authorId: Number(authorId),
+        authorId: req.user.userId,
       }
     });
     res.status(201).json(blog);
