@@ -9,7 +9,7 @@ export const latest = async (req, res, next) => {
         createdAt: 'desc',
       },
     })
-    res.json(blogs);
+    return res.status(200).json(blogs);
   } catch (error) {
     next(error);
   }
@@ -18,7 +18,7 @@ export const latest = async (req, res, next) => {
 export const getAll = async (req, res, next) => {
   try {
     const blogs = await prisma.blogs.findMany({ orderBy: { createdAt: 'desc' }});
-    res.json(blogs)
+    return res.status(200).json(blogs)
   } catch (error) {
     next(error)
   }
@@ -28,7 +28,10 @@ export const getOne = async (req, res, next) => {
   const { slug } = req.params;
   try {
     const blog = await prisma.blog.findUnique({
-      where: { slug },
+      where: {
+        slug,
+        published: true,
+      },
       include: {
         author: {
           select: {
@@ -39,19 +42,20 @@ export const getOne = async (req, res, next) => {
         comments: true,
       }
     });
-    res.json(blog)
+    if(!blog) return res.status(400).json({ message: "Blog not found" });
+
+    return res.status(200).json(blog)
   } catch (error) {
     next(error)
   }
 }
 
 export const getForm = (req, res) => {
-  res.render('create form')
+  return res.send('create form')
 }
 
 
 export const create = async (req, res, next) => {
-
   if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
   const { title, content, published } = req.body;
   const slug = slugify(title);
@@ -72,10 +76,11 @@ export const create = async (req, res, next) => {
 }
 
 export const deleteBlog = async (req, res, next) => {
+  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
   const { slug } = req.params;
   try {
     const blog = await prisma.blog.delete({ where: { slug }})
-    res.status(204).send()
+    res.status(204).send('deleted')
   } catch (error) {
     next(error)
   }
@@ -83,16 +88,19 @@ export const deleteBlog = async (req, res, next) => {
 }
 
 export const edit = async (req, res, next) => {
+  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
   const { slug } = req.params;
   try {
     const blog = await prisma.blog.findUnique({ where: { slug }});
-    res.json(blog)
+    if(!blog) return res.status(400).json({ message: "Blog not found" })
+    return res.json(blog)
   } catch (error) {
     next(error)
   }
 }
 
 export const update = async (req, res, next) => {
+  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
   const { slug } = req.params;
   const { title, content, published } = req.body;
   try {

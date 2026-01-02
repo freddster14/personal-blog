@@ -5,8 +5,8 @@ const blog = Router();
 
 blog.get('/', controller.latest)
 blog.get('/all', controller.getAll);
-blog.get('/:slug', controller.getOne);
 blog.get('/create', verifyToken, controller.getForm);
+blog.get('/:slug', controller.getOne);
 blog.get('/edit/:slug', verifyToken, controller.edit);
 
 blog.post('/', verifyToken, controller.create);
