@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import * as controller from '../controllers/home.js';
+import { verifyToken } from '../middleware/auth.js';
 const home = Router();
 
 home.get('/', controller.home);
+home.get('/me', verifyToken, controller.getMe);
 home.get('/about', controller.about);
 home.get('/sign-up', controller.signup);
 home.get('/login', controller.login);
