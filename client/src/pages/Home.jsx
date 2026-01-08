@@ -1,15 +1,16 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router'
 import '../styles/Dashboard.css'
 import { useAuth } from '../context/AuthContext'
 import { Nav } from '../components/Navbar'
 
-function Dashboard() {
+function Home() {
   return (
     <> 
       <Nav/>
-      <h1>Hello World!!</h1>
+      <Outlet />
     </>
   )
 }
 
-export default Dashboard
+export default Home
