@@ -8,7 +8,6 @@ export async function apiFetch(url, options = {}) {
       ...options.headers,
     },
   });
-
   if(!res.ok) throw new Error('Request fail');
   return res.json();
 }

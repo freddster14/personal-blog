@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router'
+import { useLoaderData } from 'react-router'
 import '../styles/Dashboard.css'
-import { useAuth } from '../context/AuthContext'
-import { Nav } from '../components/Navbar'
+
 
 function Home() {
+  const blogs = useLoaderData();
+  console.log(blogs)
+  if(!blogs) return null;
   return (
-    <> 
-      <Nav/>
-      <Outlet />
-    </>
+     <div>
+      {blogs.map(blog => (
+        <div key={blog.id}>{blog.title}</div>
+      ))}
+    </div>
   )
 }
 
