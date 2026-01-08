@@ -8,6 +8,13 @@ export const latest = async (req, res, next) => {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        author: {
+          select: {
+            name: true,
+          }
+        }
+      }
     })
     return res.status(200).json(blogs);
   } catch (error) {

@@ -1,15 +1,24 @@
 import { useLoaderData } from 'react-router'
-import '../styles/Dashboard.css'
-
+import styles from '../styles/Home.module.css'
 
 function Home() {
   const blogs = useLoaderData();
-  console.log(blogs)
   if(!blogs) return null;
+  const options = { month: "long", day: "numeric", year: "numeric" }
   return (
-     <div>
+    <div>
       {blogs.map(blog => (
-        <div key={blog.id}>{blog.title}</div>
+        <div key={blog.id}>
+          <a href={`/b/${blog.slug}`}>
+            <h2>{blog.title}</h2>
+            <p className={styles.content} >{blog.content}</p>
+          </a>
+          <div>
+            <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
+            <p>by {blog.author.name}</p>
+          </div>
+          
+        </div>
       ))}
     </div>
   )
