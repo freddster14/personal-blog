@@ -10,20 +10,26 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     async function loadUser() {
+      if(!localStorage.getItem('token')) {
+        setLoading(false);
+        return;
+      }
+      
       try {
         const data = await apiFetch("/me");
         setUser(data);
       } catch {
         setUser(null)
+        localStorage.removeItem('token');
       } finally {
         setLoading(false)
       }
     }
     loadUser();
   }, []);
-
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
       { children }

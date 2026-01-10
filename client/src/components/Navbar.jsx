@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext"
 
 export function Nav() {
+  const { setUser } = useAuth();
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
   if(loading) return null;
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  }
   console.log(user)
   return (
     <nav>
@@ -10,7 +18,7 @@ export function Nav() {
       {user 
         ? (<div>
             <h2>{user.name}</h2>
-            <a href="/logout">Logout</a>
+            <button onClick={logout}>Logout</button>
           </div>
           )  
         : (<div>
