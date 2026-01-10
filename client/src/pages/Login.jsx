@@ -1,21 +1,52 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
+import { login } from "../api/forms";
 
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if(!email || !password) {
+      setError({ message: "All fields are required" });
+      return;
+    }
+
+    if(password.length < 8) {
+      setError({ message: "Password must be at least 8 characters" });
+      return;
+    }
+    try {
+      const res = await login(email, password);
+      localStorage.setItem('token', res.token);
+      setUser(res.user);
+      navigate('/')
+    } catch (error) {
+      setError(error)
+    }
+  }
 
   return (
     <>
       <div>
-          <h1>Login</h1>
-          <p>Don't have an account?</p>
-          <a href="/sign-up">Sign Up</a>
+        <h1>Login</h1>
+        <p>Don't have an account?</p>
+        <a href="/sign-up">Sign Up</a>
       </div>
-      <form action="/login" method="post">
+      <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"  />
+        <input type="email" value={email} onChange={e => setEmail(e.target.value)}  />
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <p>{error.message}</p>
+        <button type="submit">Login</button>
       </form>
     </>
   )

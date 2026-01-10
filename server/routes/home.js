@@ -6,8 +6,6 @@ const home = Router();
 home.get('/', controller.home);
 home.get('/me', verifyToken, controller.getMe);
 home.get('/about', controller.about);
-home.get('/sign-up', controller.signup);
-home.get('/login', controller.login);
 
 home.post('/sign-up', controller.create);
 home.post('/login', controller.loginUser);

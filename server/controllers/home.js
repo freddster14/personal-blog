@@ -11,15 +11,6 @@ export const about = (req, res) => {
   res.send('about')
 }
 
-export const signup = async (req, res, next) => {
-  res.send('signup')
-}
-
-export const login = async (req, res) => {
-
-  
-  res.send("login")
-}
 
 export const loginUser = async (req, res, next) => {
   const { email , password } = req.body;
@@ -35,7 +26,15 @@ export const loginUser = async (req, res, next) => {
       process.env.SECRET,
       { expiresIn: '1h'},
     );
-    return res.json({ token });
+    return res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (error) {
     next(error);
   }
