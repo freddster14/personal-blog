@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import { login } from "../api/forms";
+import { formSubmit } from "../api/forms";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,13 +18,8 @@ export default function Login() {
       setError({ message: "All fields are required" });
       return;
     }
-
-    if(password.length < 8) {
-      setError({ message: "Password must be at least 8 characters" });
-      return;
-    }
     try {
-      const res = await login(email, password);
+      const res = await formSubmit('/login', { email, password });
       localStorage.setItem('token', res.token);
       setUser(res.user);
       navigate('/')
