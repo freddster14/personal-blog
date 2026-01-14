@@ -1,3 +1,5 @@
+import { data } from "react-router";
+
 export async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
   const res = await fetch(`http://localhost:3000${url}`, {
@@ -8,7 +10,7 @@ export async function apiFetch(url, options = {}) {
       ...options.headers,
     },
   });
-  const data = await res.json();
-  if(!res.ok) throw new Error(data.message || 'Something went wrong');
-  return data;
+  const info = await res.json();
+  if(!res.ok) throw data(`${info.message || 'Something went wrong'}`, { status: res.status, statusText: res.statusText });
+  return info;
 }

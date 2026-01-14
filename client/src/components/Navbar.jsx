@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { useAuth } from "../context/AuthContext"
 
 export function Nav() {
@@ -15,6 +15,8 @@ export function Nav() {
   return (
     <nav>
       <h1>MyBlog</h1>
+      <Link to='/'>Home</Link>
+      <Link to='/b/all'>Blogs</Link>
       {user 
         ? (<div>
             <h2>{user.name}</h2>
@@ -22,8 +24,8 @@ export function Nav() {
           </div>
           )  
         : (<div>
-            <a href="/sign-up">Signup</a>
-            <a href="/login">Login</a>
+            <Link to='/sign-up'>Sign Up</Link>
+            <Link to="/login">Login</Link>
           </div> 
          )
       }
