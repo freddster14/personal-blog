@@ -5,6 +5,9 @@ export const latest = async (req, res, next) => {
   try {
     const blogs = await prisma.blog.findMany({
       take: 6,
+      where: {
+        published: true,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -23,8 +26,35 @@ export const latest = async (req, res, next) => {
 }
 
 export const getAll = async (req, res, next) => {
+  let blogs;
   try {
-    const blogs = await prisma.blogs.findMany({ orderBy: { createdAt: 'desc' }});
+    if(req.user?.role === 'admin') {
+      blogs = await prisma.blog.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            name: true,
+          }
+        }
+      },
+    });
+    } else {
+      blogs = await prisma.blog.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            name: true,
+          }
+        }
+      },
+    });
+    }
+    
     return res.status(200).json(blogs)
   } catch (error) {
     next(error)
@@ -37,7 +67,6 @@ export const getOne = async (req, res, next) => {
     const blog = await prisma.blog.findUnique({
       where: {
         slug,
-        published: true,
       },
       include: {
         author: {
@@ -49,9 +78,13 @@ export const getOne = async (req, res, next) => {
         comments: true,
       }
     });
-    if(!blog) return res.status(400).json({ message: "Blog not found" });
+    console.log(req.user, blog) 
+    if((req.user?.role === 'admin') || blog.published) {
+      return res.status(200).json(blog)
+    } else {
+      return res.status(404).json({ message: "Blog not found or available" });
+    }
 
-    return res.status(200).json(blog)
   } catch (error) {
     next(error)
   }

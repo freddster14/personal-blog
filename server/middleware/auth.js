@@ -11,6 +11,9 @@ export function verifyToken(req, res, next) {
       next();
     });
   } else {
-    return res.status(401).json({ message: 'No token provided'})
+    req.user = null;
+    next();
   }
 }
+
+

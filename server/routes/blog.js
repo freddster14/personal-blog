@@ -4,12 +4,12 @@ import * as controller from '../controllers/blog.js';
 const blog = Router();
 
 blog.get('/', controller.latest)
-blog.get('/all', controller.getAll);
+blog.get('/all', verifyToken, controller.getAll);
 blog.get('/create', verifyToken, controller.getForm);
-blog.get('/:slug', controller.getOne);
+blog.get('/:slug', verifyToken, controller.getOne);
 blog.get('/edit/:slug', verifyToken, controller.edit);
 
-blog.post('/', verifyToken, controller.create);
+blog.post('/create', verifyToken, controller.create);
 blog.delete('/:slug', verifyToken, controller.deleteBlog);
 blog.put('/:slug', verifyToken, controller.update);
 

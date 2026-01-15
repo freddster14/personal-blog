@@ -10,6 +10,7 @@ export function Nav() {
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    navigate('/')
   }
   console.log(user)
   return (
