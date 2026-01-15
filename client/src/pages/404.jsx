@@ -1,4 +1,5 @@
 import { isRouteErrorResponse, useRouteError, Link } from "react-router";
+import Nav from "../components/Navbar";
 
 export default function RootErrorBoundary() {
   let error = useRouteError();
@@ -6,6 +7,7 @@ export default function RootErrorBoundary() {
   if (isRouteErrorResponse(error)) {
     return (
       <>
+        <Nav />
         <h1>
           {error.status} {error.statusText}
         </h1>

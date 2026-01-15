@@ -19,7 +19,7 @@ function Blog() {
         <p>{blog.author.name}</p>
         <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
       </div>
-      <p>{blog.content}</p>
+      <pre>{blog.content}</pre>
     </div>
   )
 }

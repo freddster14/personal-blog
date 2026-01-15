@@ -24,7 +24,8 @@ export default function Login() {
       setUser(res.user);
       navigate('/')
     } catch (error) {
-      setError(error)
+      console.log(error)
+      setError({ message: error.data})
     }
   }
 

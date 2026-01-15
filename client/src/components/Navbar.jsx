@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../context/AuthContext"
 
-export function Nav() {
+export default function Nav() {
   const { setUser } = useAuth();
   const { user, loading } = useAuth();
   const navigate = useNavigate();

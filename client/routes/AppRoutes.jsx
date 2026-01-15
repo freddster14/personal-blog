@@ -7,6 +7,7 @@ import Login from '../src/pages/Login'
 import AllBlogs from '../src/pages/AllBlogs';
 import RootErrorBoundary from '../src/pages/404';
 import { apiFetch } from '../src/api/client';
+import Edit from '../src/pages/Edit';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         path: 'b/:slug',
         loader: async ({ params }) => await apiFetch(`/b/${params.slug}`),
         Component: Blog,
+      },
+      {
+        path: 'b/edit/:slug',
+        loader: async ({ params }) => await apiFetch(`/b/edit/${params.slug}`),
+        Component: Edit,
       },
     ]
   },

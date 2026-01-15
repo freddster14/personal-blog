@@ -1,0 +1,53 @@
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router";
+import { apiFetch } from "../api/client";
+import { formSubmit } from "../api/forms";
+
+export default function Edit() {
+  const blog = useLoaderData();
+  const [title, setTitle] = useState(blog.title);
+  const [content, setContent] = useState(blog.content);
+  const [published, setPublished] = useState(blog.published);
+  const [error, setError] = useState("");
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const options = {
+        method: "PUT",
+        body: JSON.stringify({ title, content, published })
+      };
+      const res = await apiFetch(`/b/${blog.slug}`, options)
+      navigate(`/b/${blog.slug}`)
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      const options = {
+        method: "DELETE",
+      }
+      await apiFetch(`/b/${blog.slug}`, options)
+    } catch (error) {
+      setError(error)
+    }
+  }
+  console.log(blog)
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
+        <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <label htmlFor="content">Content</label>
+        <textarea type="text" id="content" value={content} onChange={(e) => setContent(e.target.value)} />
+        <label htmlFor="published">Published</label>
+        <input type="checkbox" id="published" checked={published} onChange={(e) => setPublished(e.target.checked)} />
+        <p>{error.message}</p>
+        <button type="submit">Save</button>
+        <button onClick={handleDelete}>Delete</button>
+      </form>
+    </>
+  )
+}

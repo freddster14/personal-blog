@@ -128,7 +128,7 @@ export const deleteBlog = async (req, res, next) => {
 }
 
 export const edit = async (req, res, next) => {
-  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  if(req.user?.role !== 'admin') return res.status(401).json({ message: 'No permission' })
   const { slug } = req.params;
   try {
     const blog = await prisma.blog.findUnique({ where: { slug }});

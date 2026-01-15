@@ -33,7 +33,8 @@ function Signup() {
       setUser(res.user);
       navigate('/')
     } catch (error) {
-      setError(error);
+      setError({ message: error.data})
+
     }
   
   }
