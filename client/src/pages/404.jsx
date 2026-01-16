@@ -5,23 +5,30 @@ export default function RootErrorBoundary() {
   let error = useRouteError();
   console.log(error)
   if (isRouteErrorResponse(error)) {
+    if (error.status === 404) {
+      return (
+        <>
+          <Nav />
+          <h1>404</h1>
+          <p>Page Not Found, return <Link to="/">Home</Link></p>
+        </>
+      );
+    }
+
     return (
       <>
         <Nav />
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
+        <h1>{error.status} </h1>
         <p>{error.data}, return <Link to="/">Home</Link></p>
       </>
     );
   } else if (error instanceof Error) {
     return (
-      <div>
-        <h1>Error</h1>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
-      </div>
+      <>
+        <Nav />
+        <h1>{error.status || 'Error'}</h1>
+        <p>{error.message}, return <Link to="/">Home</Link></p>
+      </>
     );
   } else {
     return <h1>Unknown Error</h1>;

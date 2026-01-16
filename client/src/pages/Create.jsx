@@ -1,19 +1,29 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState, json } from "react";
+import { data, useNavigate } from "react-router";
 import { apiFetch } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 
 export default function Create() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if(user?.role !== 'admin') navigate('/login', { replace: true})
-  });
+  if (!user) {
+    const error = new Error('Login to create blog');
+    error.status = 401;
+    error.statusText = 'Unauthorized';
+    throw error;
+  }
+
+  if (user.role !== 'admin') {
+    const error = new Error('Must be admin');
+    error.status = 403;
+    error.statusText = 'Forbidden';
+    throw error;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
