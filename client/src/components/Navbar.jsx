@@ -5,7 +5,6 @@ export default function Nav() {
   const { setUser } = useAuth();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  if(loading) return null;
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -30,6 +29,7 @@ export default function Nav() {
           </div> 
          )
       }
+      {user?.role === 'admin' && <Link to='/b/create'>Create</Link>}
     </nav>
   )
 }

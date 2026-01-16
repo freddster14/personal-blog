@@ -8,6 +8,7 @@ import AllBlogs from '../src/pages/AllBlogs';
 import RootErrorBoundary from '../src/pages/404';
 import { apiFetch } from '../src/api/client';
 import Edit from '../src/pages/Edit';
+import Create from '../src/pages/Create';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       { index: true,
         loader: async () => await apiFetch('/b'),
         Component: Home
+      },
+      {
+        path: '/b/create',
+        Component: Create
       },
       {
         path:'b/all',

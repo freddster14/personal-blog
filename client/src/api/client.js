@@ -10,6 +10,7 @@ export async function apiFetch(url, options = {}) {
       ...options.headers,
     },
   });
+  console.log(res)
   const info = await res.json();
   if(!res.ok) throw data(`${info.message || 'Something went wrong'}`, { status: res.status, statusText: res.statusText });
   return info;

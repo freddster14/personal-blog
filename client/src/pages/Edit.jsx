@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { apiFetch } from "../api/client";
-import { formSubmit } from "../api/forms";
 
 export default function Edit() {
   const blog = useLoaderData();
@@ -17,7 +16,7 @@ export default function Edit() {
         method: "PUT",
         body: JSON.stringify({ title, content, published })
       };
-      const res = await apiFetch(`/b/${blog.slug}`, options)
+      await apiFetch(`/b/${blog.slug}`, options)
       navigate(`/b/${blog.slug}`)
     } catch (error) {
       setError(error)
@@ -29,8 +28,10 @@ export default function Edit() {
       const options = {
         method: "DELETE",
       }
-      await apiFetch(`/b/${blog.slug}`, options)
+      await apiFetch(`/b/${blog.slug}`, options);
+      navigate('/b/all')
     } catch (error) {
+      console.error(error)
       setError(error)
     }
   }
@@ -39,14 +40,14 @@ export default function Edit() {
     <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
+        <p>Published: {`${published}`}</p>
         <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <label htmlFor="content">Content</label>
         <textarea type="text" id="content" value={content} onChange={(e) => setContent(e.target.value)} />
-        <label htmlFor="published">Published</label>
-        <input type="checkbox" id="published" checked={published} onChange={(e) => setPublished(e.target.checked)} />
         <p>{error.message}</p>
+        <button type="submit" onClick={() => setPublished(!published)}>{published ? "Unpublish" : "Publish"}</button>
         <button type="submit">Save</button>
-        <button onClick={handleDelete}>Delete</button>
+        <button type="button" onClick={handleDelete}>Delete</button>
       </form>
     </>
   )
