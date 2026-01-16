@@ -3,15 +3,6 @@ import { prisma } from "../prisma/client.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export const home = (req, res) => {
-  res.send('home')
-}
-
-export const about = (req, res) => {
-  res.send('about')
-}
-
-
 export const loginUser = async (req, res, next) => {
   const { email , password } = req.body;
   try {
@@ -26,7 +17,7 @@ export const loginUser = async (req, res, next) => {
       process.env.SECRET,
       { expiresIn: '1h'},
     );
-    return res.json({
+    return res.status(200).json({
       token,
       user: {
         id: user.id,
@@ -39,10 +30,7 @@ export const loginUser = async (req, res, next) => {
     next(error);
   }
 };
-export const logout = async (req, res, next) => {
 
-  res.send('logout')
-};
 
 
 export const getMe = async (req, res, next) => {
@@ -69,7 +57,7 @@ export const create = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const existingUser = await prisma.user.findUnique({ where: { email }});
-    if(existingUser) return res.status(400).json({ message: 'Email in use already'});
+    if(existingUser) return res.status(409).json({ message: 'Email in use already'});
 
     const user = await prisma.user.create({
       data: {
@@ -84,7 +72,7 @@ export const create = async (req, res, next) => {
       process.env.SECRET,
       { expiresIn: '1h'},
     );
-    return res.json({
+    return res.status(201).json({
       user: {
         id: user.id,
         name: user.name,

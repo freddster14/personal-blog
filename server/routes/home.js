@@ -1,14 +1,11 @@
 import { Router } from 'express';
 import * as controller from '../controllers/home.js';
-import { verifyToken } from '../middleware/auth.js';
+import { verifyTokenOptional } from '../middleware/auth.js';
 const home = Router();
 
-home.get('/', controller.home);
-home.get('/me', verifyToken, controller.getMe);
-home.get('/about', controller.about);
+home.get('/me', verifyTokenOptional, controller.getMe);
 
 home.post('/sign-up', controller.create);
 home.post('/login', controller.loginUser);
-home.post('/logout', controller.logout);
 
 export default home;

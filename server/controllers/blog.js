@@ -90,13 +90,9 @@ export const getOne = async (req, res, next) => {
   }
 }
 
-export const getForm = (req, res) => {
-  return res.send('create form')
-}
-
 
 export const create = async (req, res, next) => {
-  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
   const { title, content, published } = req.body;
   const slug = slugify(title);
   try {
@@ -116,31 +112,30 @@ export const create = async (req, res, next) => {
 }
 
 export const deleteBlog = async (req, res, next) => {
-  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
   const { slug } = req.params;
   try {
-    const blog = await prisma.blog.delete({ where: { slug }})
-    res.status(204).send('deleted')
+    const blog = await prisma.blog.delete({ where: { slug }});
+    res.status(200).json({ message: 'Blog deleted'})
   } catch (error) {
     next(error)
   }
-  res.send('deleted')
 }
 
 export const edit = async (req, res, next) => {
-  if(req.user?.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
   const { slug } = req.params;
   try {
     const blog = await prisma.blog.findUnique({ where: { slug }});
-    if(!blog) return res.status(400).json({ message: "Blog not found" })
-    return res.json(blog)
+    if(!blog) return res.status(404).json({ message: "Blog not found" })
+    return res.status(200).json(blog)
   } catch (error) {
     next(error)
   }
 }
 
 export const update = async (req, res, next) => {
-  if(req.user.role !== 'admin') return res.status(401).json({ message: 'No permission' })
+  if(req.user.role !== 'admin') return res.status(403).json({ message: 'No permission' })
   const { slug } = req.params;
   const { title, content, published } = req.body;
   try {
