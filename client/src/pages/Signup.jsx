@@ -14,8 +14,11 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!email || !name || !password || !confirm) {
+    if(!email || !name || !password) {
       setError({ message: "All fields required"});
+      return;
+    } else if (!confirm) {
+      setError({ message: "Please confirm your password" });
       return;
     }
     if(password.length < 8) {
