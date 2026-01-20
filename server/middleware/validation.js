@@ -38,10 +38,24 @@ export const validateLogin = [
 ];
 
 export const validateComment = [
-  body('comment')
+  body('content')
+    .notEmpty().withMessage('Content is missing')
+    .isString()
     .trim()
-    .notEmpty()
-    .withMessage('Message is missing')
     .bail()
     .isLength({ max: 200 }),
 ];
+
+export const validateBlog = [
+  body('title')
+    .trim()
+    .notEmpty().withMessage('Title is required')
+    .isString(),
+  body('content')
+    .trim()
+    .notEmpty().withMessage('Content is required')
+    .isString(),
+  body('published')
+    .isBoolean({ loose: false }).withMessage('Published must be a boolean')
+    .notEmpty().withMessage('Published is required'),
+]

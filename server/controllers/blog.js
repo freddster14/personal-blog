@@ -1,3 +1,5 @@
+import validate from '../middleware/handleValidation.js';
+import { validateBlog } from '../middleware/validation.js';
 import { prisma } from '../prisma/client.js';
 import { slugify } from '../utils/slugify.js';
 
@@ -54,7 +56,6 @@ export const getAll = async (req, res, next) => {
       },
     });
     }
-    
     return res.status(200).json(blogs)
   } catch (error) {
     next(error)
@@ -84,32 +85,35 @@ export const getOne = async (req, res, next) => {
     } else {
       return res.status(404).json({ message: "Blog not found or available" });
     }
-
   } catch (error) {
     next(error)
   }
 }
 
 
-export const create = async (req, res, next) => {
-  if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
-  const { title, content, published } = req.body;
-  const slug = slugify(title);
-  try {
-    const blog = await prisma.blog.create({
-      data: {
-        title,
-        content,
-        published,
-        slug,
-        authorId: req.user.userId,
-      }
-    });
-    res.status(201).json(blog);
-  } catch (error) {
-    next(error)
+export const create = [
+  validateBlog,
+  validate,
+  async (req, res, next) => {
+    if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
+    const { title, content, published } = req.body;
+    const slug = slugify(title);
+    try {
+      const blog = await prisma.blog.create({
+        data: {
+          title,
+          content,
+          published,
+          slug,
+          authorId: req.user.userId,
+        }
+      });
+      res.status(201).json(blog);
+    } catch (error) {
+      next(error)
+    }
   }
-}
+]
 
 export const deleteBlog = async (req, res, next) => {
   if(req.user?.role !== 'admin') return res.status(403).json({ message: 'No permission' })
@@ -134,21 +138,26 @@ export const edit = async (req, res, next) => {
   }
 }
 
-export const update = async (req, res, next) => {
-  if(req.user.role !== 'admin') return res.status(403).json({ message: 'No permission' })
-  const { slug } = req.params;
-  const { title, content, published } = req.body;
-  try {
-    const blog = await prisma.blog.update({
-      where: { slug },
-      data: {
-        title,
-        content,
-        published,
-      }
-    });
-    res.status(200).json(blog)
-  } catch (error) {
-    next(error)
+
+export const update = [
+  validateBlog,
+  validate,
+  async (req, res, next) => {
+    if(req.user.role !== 'admin') return res.status(403).json({ message: 'No permission' })
+    const { slug } = req.params;
+    const { title, content, published } = req.body;
+    try {
+      const blog = await prisma.blog.update({
+        where: { slug },
+        data: {
+          title,
+          content,
+          published,
+        }
+      });
+      res.status(200).json(blog)
+    } catch (error) {
+      next(error)
+    }
   }
-}
+]
