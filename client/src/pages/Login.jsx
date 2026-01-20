@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { formSubmit } from "../api/forms";
+import styles from "../styles/Form.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className={styles.main}>
       <div>
         <h1>Login</h1>
         <p>Don't have an account?</p>
@@ -43,6 +44,6 @@ export default function Login() {
         <p>{error.message}</p>
         <button type="submit">Login</button>
       </form>
-    </>
+    </div>
   )
 }

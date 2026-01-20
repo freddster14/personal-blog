@@ -57,7 +57,7 @@ export default function Comments({ comments, slug }) {
           <div key={c.id}>
             <h3>{c.author.name}</h3>
             <p>{c.content}</p>
-            {(user?.role === 'admin' || user.id === c.authorId) && 
+            {(user?.role === 'admin' || user?.id === c.authorId) && 
               <form onSubmit={(e) => handleDelete(e, c.id)}><button type="submit">Delete</button></form>
             }
           </div>

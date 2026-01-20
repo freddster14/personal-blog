@@ -1,0 +1,21 @@
+nav {
+  display: flex;
+  align-items: center;
+  font-size: .9rem;
+  gap: 1rem;
+  padding: .3rem 1rem;
+  position: sticky;
+}
+
+h1 {
+  margin-right: auto;
+}
+
+nav div {
+  display: flex;
+  font-size: .6rem;
+  gap: 1rem;
+}
+div button, div a {
+  font-size: .9rem;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { formSubmit } from "../api/forms";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import styles from "../styles/Form.module.css";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -43,7 +44,7 @@ function Signup() {
   }
 
   return (
-    <>
+    <div className={styles.main}>
       <div>
         <h1>Sign Up</h1>
         <p>Already have an account?</p>
@@ -61,7 +62,7 @@ function Signup() {
         <p>{error.message}</p>
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
    
   )
 }

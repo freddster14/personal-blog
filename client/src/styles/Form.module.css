@@ -1,0 +1,39 @@
+.main {
+  display: flex;
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  translate: -50% -50%;
+  width: 80vw;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: rgb(236, 236, 236);
+  padding: 1rem;
+  border-radius: .5rem;
+  min-height: 250px;
+} 
+
+.main div {
+  width: 50%;
+}
+
+.main form {
+  display: flex;
+  margin-top: 1.3rem;
+  width: 50%;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: .5rem;
+}
+
+.main form p {
+  color: red;
+  margin: 0;
+}
+
+.main form button {
+  margin-top: .5rem;
+}
