@@ -1,0 +1,60 @@
+.root {
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.all {
+  margin: 1rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-around;
+ 
+}
+
+.container {
+  padding: .5rem 1rem;
+  font-size: 1.1rem;
+  color: inherit;
+  border-radius: .5rem;
+  background-color: rgb(236, 236, 236);
+  transition: all .2s ease;
+}
+
+.container:hover, .container:focus {
+  background-color: rgb(230, 230, 230);
+  color: black;
+}
+
+.container p {
+display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+
+.container div:nth-last-child(1) {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (max-width: 850px) {
+  .main {
+    display: flex;
+  }
+
+  .container {
+    font-size: .9rem;
+  }
+  .container p {
+    font-size: 1rem;
+  }
+}
+

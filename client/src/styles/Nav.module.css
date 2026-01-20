@@ -16,6 +16,6 @@ nav div {
   font-size: .6rem;
   gap: 1rem;
 }
-div button, div a {
+nav div button, nav div a {
   font-size: .9rem;
 }
