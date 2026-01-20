@@ -3,7 +3,6 @@ import Nav from "../components/Navbar";
 
 export default function RootErrorBoundary() {
   let error = useRouteError();
-  console.log(error)
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
       return (

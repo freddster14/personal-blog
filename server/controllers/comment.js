@@ -41,10 +41,10 @@ export const deleteComment = async (req, res, next) => {
     const comment = await prisma.comment.findUnique({ where: { id: Number(id) }});
     if(comment && (comment.authorId === req.user.userId || req.user.role === 'admin')) {
       await prisma.comment.delete({ where: { id: Number(id) }});
+      return res.status(200).json({ message: 'Comment deleted'})
     } else {
       return res.status(400).json({ message: 'Comment cannot be deleted'});
     }
-    return res.status(200).send('deleted')
   } catch (error) {
     next(error);
   }

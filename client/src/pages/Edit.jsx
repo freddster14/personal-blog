@@ -31,11 +31,9 @@ export default function Edit() {
       await apiFetch(`/b/${blog.slug}`, options);
       navigate('/b/all')
     } catch (error) {
-      console.error(error)
       setError(error)
     }
   }
-  console.log(blog)
   return (
     <>
       <form onSubmit={handleSubmit}>

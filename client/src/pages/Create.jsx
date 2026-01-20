@@ -1,10 +1,10 @@
-import { useEffect, useState, json } from "react";
-import { data, useNavigate } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { apiFetch } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 
 export default function Create() {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);

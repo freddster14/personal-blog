@@ -16,8 +16,7 @@ function Home() {
           <div>
             <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
             <p>by {blog.author.name}</p>
-          </div>
-          
+          </div> 
         </div>
       ))}
       <div>
