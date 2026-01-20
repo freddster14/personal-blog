@@ -76,7 +76,19 @@ export const getOne = async (req, res, next) => {
             email: true,
           }
         },
-        comments: true,
+        comments: {
+          
+          include: {
+            author: {
+              select: {
+                name: true,
+              },
+            },
+          },
+           orderBy: {
+                createdAt: 'desc',
+              },
+        },
       }
     });
     console.log(req.user, blog) 
