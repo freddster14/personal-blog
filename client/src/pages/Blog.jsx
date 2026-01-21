@@ -1,6 +1,6 @@
 import { useLoaderData, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
-
+import styles from "../styles/Blog.module.css";
 import Comments from "../components/Comments";
 
 function Blog() {
@@ -9,7 +9,7 @@ function Blog() {
   const options = { month: "long", day: "numeric", year: "numeric" }
   
   return (
-    <div>
+    <div className={styles.main}>
       <h1>{blog.title}</h1>
       {user?.role === 'admin' && 
       <div>
@@ -17,7 +17,7 @@ function Blog() {
         <Link to={`/b/edit/${blog.slug}`}>Edit</Link>
       </div>
       }
-      <div>
+      <div className={styles.info}>
         <p>{blog.author.name}</p>
         <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
       </div>

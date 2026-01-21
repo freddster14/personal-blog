@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { apiFetch } from "../api/client";
+import styles from "../styles/Blog.module.css";
 
 export default function Comments({ comments, slug }) {
   const { user } = useAuth();
@@ -40,21 +41,21 @@ export default function Comments({ comments, slug }) {
   return (
     <>
     { user ? 
-      <form onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Add a comment</h2>
         <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="write your comment here"></textarea>
         <button type="submit">Post</button>
         <p>{error.message}</p>
       </form> 
       : 
-      <div>
+      <div className={styles.form}>
         <h2>Login to join the conversation</h2>
         <p><Link to="/login">Login</Link></p>
       </div>
     }
-    <div>
+    <div className={styles.comments}>
         {comments.length > 0 ? comments.map(c => (
-          <div key={c.id}>
+          <div className={styles.comment} key={c.id}>
             <h3>{c.author.name}</h3>
             <p>{c.content}</p>
             {(user?.role === 'admin' || user?.id === c.authorId) && 
