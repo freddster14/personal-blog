@@ -22,6 +22,7 @@ export default function AllBlogs() {
           {user?.role === 'admin' && 
             <div>
                <Link to={`/b/edit/${blog.slug}`}>Edit</Link>
+               <p>Published: {`${blog.published}`}</p>
             </div>
           }
         </Link>
