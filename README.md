@@ -11,5 +11,5 @@ Full-stack blog application with client-server architecture.
 - Role-based permissions (admin/user) 
 
 ## Tech Stack  
-Backend: Node.js, Express, Prisma, PostgreSQL
-Frontend: React
+- Backend: Node.js, Express, Prisma, PostgreSQL
+- Frontend: React
