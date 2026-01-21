@@ -14,7 +14,7 @@ export default function Nav() {
   }
   console.log(user)
   return (
-    <nav>
+    <nav className={styles.nav}>
       <h1>Personal Blog</h1>
       <Link to='/'>Home</Link>
       <Link to='/b/all'>Blogs</Link>

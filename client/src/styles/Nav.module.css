@@ -1,4 +1,4 @@
-nav {
+.nav {
   display: flex;
   align-items: center;
   font-size: .9rem;
@@ -10,16 +10,16 @@ nav {
   background-color: white;
 }
 
-h1 {
+.nav h1 {
   margin: .5rem 0;
   margin-right: auto;
 }
 
-nav div {
+.nav div {
   display: flex;
   font-size: .6rem;
   gap: 1rem;
 }
-nav div button, nav div a {
+.nav div button, .nav div a {
   font-size: .9rem;
 }
