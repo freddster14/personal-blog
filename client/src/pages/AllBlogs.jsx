@@ -1,5 +1,6 @@
 import { useLoaderData, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import styles from "../styles/Blogs.module.css";
 
 export default function AllBlogs() {
   const { user } = useAuth();
@@ -7,14 +8,14 @@ export default function AllBlogs() {
   if(!blogs) return null;
   const options = { month: "long", day: "numeric", year: "numeric" }
   return (
-    <div>
+    <div className={styles.main}>
       {blogs.map(blog => (
-        <div key={blog.id}>
-          <Link to={`/b/${blog.slug}`}>
+        <Link to={`/b/${blog.slug}`} className={styles.blog} key={blog.id}>
+          <div>
             <h2>{blog.title}</h2>
             <p>{blog.content}</p>
-          </Link>
-          <div>
+          </div>
+          <div className={styles.info}>
             <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
             <p>by {blog.author.name}</p>
           </div>
@@ -23,7 +24,7 @@ export default function AllBlogs() {
                <Link to={`/b/edit/${blog.slug}`}>Edit</Link>
             </div>
           }
-        </div>
+        </Link>
       ))}
     </div>
   )
