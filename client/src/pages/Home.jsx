@@ -9,7 +9,7 @@ function Home() {
     <div className={styles.root}>
       <div className={styles.main}>
         {blogs.map(blog => (
-          <Link href={`/b/${blog.slug}`} className={styles.container} key={blog.id}>
+          <Link to={`/b/${blog.slug}`} className={styles.container} key={blog.id}>
             <div>
               <h2>{blog.title}</h2>
               <p className={styles.content} >{blog.content}</p>
