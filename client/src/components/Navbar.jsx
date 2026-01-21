@@ -12,7 +12,6 @@ export default function Nav() {
     setUser(null);
     navigate('/')
   }
-  console.log(user)
   return (
     <nav className={styles.nav}>
       <h1>Personal Blog</h1>

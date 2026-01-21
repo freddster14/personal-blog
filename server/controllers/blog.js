@@ -91,7 +91,6 @@ export const getOne = async (req, res, next) => {
         },
       }
     });
-    console.log(req.user, blog) 
     if((req.user?.role === 'admin') || blog.published) {
       return res.status(200).json(blog)
     } else {
