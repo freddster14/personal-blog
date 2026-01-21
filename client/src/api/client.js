@@ -2,7 +2,7 @@ import { data } from "react-router";
 
 export async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
-  const res = await fetch(`http://localhost:3000${url}`, {
+  const res = await fetch(`https://personal-blog-otoa.onrender.com${url}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
