@@ -21,6 +21,18 @@
   padding-bottom: 13px;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form textarea {
+  resize: none;
+  height: 5rem;
+  width: min(1000px, 100%);
+  margin-bottom: 1rem;
+}
+
 .comments {
   display: flex;
   flex-direction: column;
