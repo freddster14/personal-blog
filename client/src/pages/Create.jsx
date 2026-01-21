@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { apiFetch } from "../api/client";
 import { useAuth } from "../context/AuthContext";
+import styles from "../styles/Form.module.css";
 
 export default function Create() {
   const { user } = useAuth();
@@ -33,7 +34,7 @@ export default function Create() {
       return;
     }
 
-    if(content.length < 399) {
+    if(content.length < 399 && published) {
       setError({ message: 'Content must be at least 400 characters'});
       return;
     }
@@ -50,8 +51,8 @@ export default function Create() {
     }
   }
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.main} >
+      <form className={styles.blog} onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <label htmlFor="content">Content</label>
@@ -61,6 +62,6 @@ export default function Create() {
         <button type="submit" onClick={() => setPublished(true)} >Publish</button>
         <button onClick={() => setPublished(false)}>Save to Drafts</button>
       </form>
-    </>
+    </div>
   )
 }
