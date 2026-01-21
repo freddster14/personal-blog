@@ -1,6 +1,4 @@
 import { data } from "react-router";
-import 'dotenv/config';
-
 
 export async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
