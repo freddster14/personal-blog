@@ -15,7 +15,7 @@ export default function Nav() {
   console.log(user)
   return (
     <nav>
-      <h1>MyBlog</h1>
+      <h1>Personal Blog</h1>
       <Link to='/'>Home</Link>
       <Link to='/b/all'>Blogs</Link>
       {user?.role === 'admin' && <Link to='/b/create'>Create</Link>}

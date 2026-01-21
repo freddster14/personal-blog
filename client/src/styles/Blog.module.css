@@ -1,5 +1,6 @@
 .main {
-  padding: .5rem 2rem;
+  padding: 2rem;
+  padding-top: .5rem;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -17,6 +18,8 @@
 
 .main pre {
   white-space: pre-wrap;
+  font-size: 1rem;
+  font-family: inherit;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   padding-bottom: 13px;
 }

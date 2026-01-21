@@ -1,11 +1,14 @@
 .root {
-  padding: 1rem 2rem;
+  padding: 2rem;
+  padding-top: .5rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .all {
-  margin: 1rem;
+  display: block;
+  padding: 1rem 0;
+  font-size: 1.5rem;
 }
 
 .main {

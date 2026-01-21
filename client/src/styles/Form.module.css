@@ -46,7 +46,7 @@ input {
 .blog textarea {
   field-sizing: content;
   min-height: 3rem;
-  max-height: 90vh;
+  max-height: 50vh;
   max-width: min(793px, 79vw);
 }
 
