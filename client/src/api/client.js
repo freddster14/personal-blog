@@ -1,8 +1,10 @@
 import { data } from "react-router";
+import 'dotenv/config';
+
 
 export async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
-  const res = await fetch(`https://personal-blog-otoa.onrender.com${url}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
