@@ -9,7 +9,7 @@ function Home() {
     <div className={styles.root}>
       <div className={styles.main}>
         {blogs.map(blog => (
-          <a href={`/b/${blog.slug}`} className={styles.container} key={blog.id}>
+          <Link href={`/b/${blog.slug}`} className={styles.container} key={blog.id}>
             <div>
               <h2>{blog.title}</h2>
               <p className={styles.content} >{blog.content}</p>
@@ -18,7 +18,7 @@ function Home() {
               <p>{new Date(blog.createdAt).toLocaleDateString(undefined, options)}</p>
               <p>by {blog.author.name}</p>
             </div> 
-          </a>
+          </Link>
         ))}
       </div>
       <Link className={styles.all} to='/b/all'>View all recent blogs.</Link>
