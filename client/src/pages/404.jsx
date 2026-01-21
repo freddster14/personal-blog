@@ -8,8 +8,10 @@ export default function RootErrorBoundary() {
       return (
         <>
           <Nav />
-          <h1>404</h1>
-          <p>Page Not Found, return <Link to="/">Home</Link></p>
+          <div className="error">
+            <h1>404</h1>
+            <p>Page Not Found, return <Link to="/">Home</Link></p>
+          </div>
         </>
       );
     }
@@ -17,8 +19,10 @@ export default function RootErrorBoundary() {
     return (
       <>
         <Nav />
-        <h1>{error.status} </h1>
-        <p>{error.data}, return <Link to="/">Home</Link></p>
+        <div className="error">
+          <h1>{error.status} </h1>
+          <p>{error.data}, return <Link to="/">Home</Link></p>
+        </div>
       </>
     );
   } else if (error instanceof Error) {
@@ -30,6 +34,6 @@ export default function RootErrorBoundary() {
       </>
     );
   } else {
-    return <h1>Unknown Error</h1>;
+    return <h1 className="error">Unknown Error</h1>;
   }
 }
